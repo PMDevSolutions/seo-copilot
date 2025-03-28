@@ -171,18 +171,19 @@ export function registerRoutes(app: Express) {
           console.log("Analysis results:", JSON.stringify(results).substring(0, 200) + "...");
           console.log("======= API ANALYZE REQUEST END =======");
           return res.json(results);
-        } catch (analysisError) {
+        } catch (analysisError: unknown) {
           console.error("Error during SEO analysis:", analysisError);
           console.log("======= API ANALYZE REQUEST END WITH ERROR =======");
+          const errorMessage = analysisError instanceof Error ? analysisError.message : "Unknown error";
           return res.status(500).json({ 
-            message: "Error analyzing SEO elements: " + (analysisError.message || "Unknown error")
+            message: "Error analyzing SEO elements: " + errorMessage
           });
         }
       } catch (dnsError) {
         console.error("DNS or validation error:", dnsError);
         console.log("======= API ANALYZE REQUEST END WITH ERROR =======");
         return res.status(500).json({ 
-          message: "Failed to resolve hostname or validate URL: " + (dnsError.message || "Unknown error") 
+          message: "Failed to resolve hostname or validate URL: " + (dnsError instanceof Error ? dnsError.message : "Unknown error") 
         });
       }
     } catch (error: any) {

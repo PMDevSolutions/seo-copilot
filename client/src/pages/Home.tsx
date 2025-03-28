@@ -729,6 +729,12 @@ declare global {
       clipboard?: {
         writeText: (text: string) => Promise<void>;
       };
+      getSiteInfo?: () => Promise<{
+        siteId: string;
+        siteName: string;
+        shortName: string;
+        domains: { url: string; default: boolean }[];
+      }>;
     }
   }
 }

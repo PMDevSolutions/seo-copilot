@@ -20,7 +20,11 @@
     "composite": true,
     "paths": {
       "@/*": ["./client/src/*"]
-    }
+    },
+    "typeRoots": [
+      "./node_modules/@types",
+      "./node_modules/@webflow"
+    ]
   },
   "include": ["client/src", "server", "vite.config.ts"],
   "exclude": ["node_modules"]
